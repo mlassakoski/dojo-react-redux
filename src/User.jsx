@@ -59,9 +59,9 @@ const User = ({
 }: Props) => {
   const classes = useStyles();
 
-  const onSubmit = (user) => onCreateUser(user);
+  const onSubmit = () => {};
 
-  const onLoad = (id) => onLoadUser(id);
+  const onLoad = () => {};
 
   return (
     <Container maxWidth="md">
@@ -136,20 +136,7 @@ const User = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  const { loading } = state.user;
-  return { loading };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onCreateUser: (user: User) => dispatch(createUser(user)),
-    onLoadUser: (id: number) => dispatch(loadUser(id)),
-  };
-};
-
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: "userForm",
   })
