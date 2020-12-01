@@ -11,4 +11,21 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-export function* watchUser() {}
+export function* createUser({ user }) {
+  try {
+    const response = yield axios.post(BASE_API, user, {
+      headers,
+    });
+
+    if (response.status === 200) {
+      yield put(fromActions.createUserSuccess(response.data));
+    }
+  } catch (error) {
+    console.error(error);
+    yield put(fromActions.createUserError(error));
+  }
+}
+
+export function* watchUser() {
+  yield takeLatest(fromTypes.CREATE_USER, createUser);
+}

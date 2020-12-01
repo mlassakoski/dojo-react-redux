@@ -56,13 +56,14 @@ const User = ({
   onLoadUser,
   submitting,
   loading,
+  user,
 }: Props) => {
   const classes = useStyles();
 
-  const onSubmit = () => {};
+  const onSubmit = (user) => onCreateUser(user);
 
   const onLoad = () => {};
-
+  console.warn(user);
   return (
     <Container maxWidth="md">
       <Paper className={classes.root}>
@@ -136,7 +137,17 @@ const User = ({
   );
 };
 
+const mapStateToProps = (state) => {
+  const { user } = state.user;
+  return { user };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onCreateUser: (user: Object) => dispatch(createUser(user)),
+});
+
 export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: "userForm",
   })
